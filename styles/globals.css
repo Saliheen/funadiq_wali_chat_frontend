@@ -1,0 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .table_th {
+    @apply text-start font-reem-kufi text-base text-black  font-normal pb-[20px] border-b  border-dashed border-[#838383];
+  }
+  .table_td {
+    @apply text-start font-reem-kufi text-base text-[#838383]  py-[20px] font-light  border-t  border-dashed border-[#838383];
+  }
+}
