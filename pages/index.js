@@ -2,31 +2,18 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
+import useSWR from "swr";
+import Loader from "@/components/common/Loader";
 
-const dummyData = [
-  {
-    title: "Campaigns",
-    count: "111",
-    color: "#40B98B",
-  },
-  {
-    title: "Delivered",
-    count: "222",
-    color: "#67A6D7",
-  },
-  {
-    title: "Contacts",
-    count: "500",
-    color: "#838383",
-  },
-  {
-    title: "Delivered",
-    count: "400",
-    color: "#626FC1",
-  },
-];
+
 
 export default function Home() {
+  
+  const {data,isLoading,mutate} = useSWR("http://localhost:5000/stats", (apiURL) =>
+    fetch(apiURL).then((res) => res.json())
+  );
+
+
   return (
     <>
       <Head>
@@ -38,13 +25,14 @@ export default function Home() {
       <div className="w-full h-full flex p-[40px]">
         <div className="flex-1 self-stretch border-[2px] border-[#838383] border-dashed  rounded-lg px-[40px] pt-[40px]">
           <h1 className="text-[#626FC1]  text-2xl font-medium">Dashboard</h1>
-          <div className="flex flex-row items-center gap-[20px] mt-[30px]">
-            {dummyData.map((item, index) => {
+          <div className="flex flex-row items-center gap-[20px] mt-[30px] flex-wrap">
+            {Array.isArray(data?.data) && data.data.map((item, index) => {
               return <StatsItem data={item} key={index + ""} />;
             })}
           </div>
         </div>
       </div>
+      {isLoading && <Loader/>}
     </>
   );
 }
@@ -52,14 +40,14 @@ export default function Home() {
 const StatsItem = ({ data }) => {
   return (
     <div
-      className="min-w-[230px] flex-1 h-[130px] rounded-[10px] flex flex-row items-center px-[15px] justify-between shadow-sm"
+      className="min-w-[230px] max-w-[230px] flex-1 h-[130px] rounded-[10px] flex flex-row items-center px-[15px] justify-between shadow-sm"
       style={{
         backgroundColor: data?.color,
       }}
     >
       <div>
         <h1 className="text-white font-reem-kufi font-medium text-sm">No.of</h1>
-        <h3 className="text-white font-reem-kufi font-medium text-xl">
+        <h3 className="text-white font-reem-kufi font-medium text-xl max-w-[100px] ">
           {data?.title}
         </h3>
       </div>

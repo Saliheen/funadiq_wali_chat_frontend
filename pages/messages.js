@@ -1,9 +1,46 @@
+import Loader from "@/components/common/Loader";
+import API from "@/utils/API";
+import getHeader from "@/utils/getHeader";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React from "react";
+import React,{useState,useEffect} from "react";
+import swal from 'sweetalert';
 
 export default function messages() {
-  const router = useRouter();
+  const header = getHeader()
+  const router = useRouter() 
+  const [payload,setPayload] = useState('')
+  const [loading,setLoading] = useState(false)
+  const saveMessageText = async () => {
+    setLoading(true)
+    try {
+       const {data} = await API.post('message/add_message',{message:payload},header)
+       swal(data?.message);
+       setLoading(false)
+    } catch (error) {
+      console.log(error)
+      setLoading(false)
+      swal("An error has occurred.");
+    }
+  }
+
+  const loadMessage = async()=>{
+    setLoading(true)
+    try {
+      const {data} = await API.get('message/get_message',header)
+      setPayload(data?.data.message)
+      setLoading(false)
+    } catch (error) {
+      console.log(error)
+      setLoading(false)
+    }
+  }
+
+  useEffect(()=>{
+    loadMessage()
+  },[])
+
+
   return (
     <>
       <Head>
@@ -13,11 +50,11 @@ export default function messages() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="w-full h-full flex p-[40px]">
-        <div className="flex-1 self-stretch border-[2px] border-[#838383] border-dashed  rounded-lg ">
+        <div className="flex-1 self-stretch border-[2px] border-[#838383] border-dashed  rounded-lg flex flex-col ">
           <h1 className="text-[#626FC1] pl-[40px] pt-[40px] text-2xl font-medium">
             Message
           </h1>
-          <div className="px-[40px] mt-[30px]">
+          <div className="px-[40px] mt-[30px] relative flex-1  flex flex-col ">
             {/* Inputs start here */}
             <div className="flex flex-row space-x-[30px] ">
               <div className="h-[50px] flex-1  border-[2px] border-[rgba(131, 131, 131, 1)] border-dashed rounded-lg relative overflow-hidden">
@@ -33,16 +70,18 @@ export default function messages() {
                 />
               </div>
             </div>
-            <div className="h-[270px] flex-1 border-2 mt-[20px]  border-[rgba(131, 131, 131, 1)] border-dashed rounded-lg relative overflow-hidden">
+            <div className="h-[270px] flex-1  border-2 mt-[20px]  border-[rgba(131, 131, 131, 1)] border-dashed rounded-lg relative overflow-hidden">
               <textarea
                 className=" w-full h-full border-none outline-none px-[20px] pt-[10px] font-reem-kufi"
                 placeholder="Write your message here.."
+                value={payload}
+                onChange = {e =>setPayload(e.target.value)}
               />
             </div>
             {/* Inputs end here */}
-            <div className="mt-[40px] flex items-center justify-between">
-              <div>
-                <div className="flex flexrow space-x-[10px] ">
+            <div className="mt-[40px] mb-[10px] flex items-center justify-between">
+              <div className="self-stretch ">
+                 <div className="flex flex-row space-x-[10px] ">
                   <div
                     className="cursor-pointer h-[44px] w-[200px] bg-[#40B98B] rounded-lg flex items-center justify-center"
                     onClick={() => router.push("/uploadimage")}
@@ -67,17 +106,22 @@ export default function messages() {
                   <h1 className="text-lg font-medium text-white font-reem-kufi">
                     Import Contacts
                   </h1>
-                </div>
+                </div> 
               </div>
-              <div className="cursor-pointer h-[44px] mt-4 w-[200px] bg-[#67A6D7] rounded-lg flex items-center justify-center">
+               <div className="cursor-pointer h-[44px] mt-4 w-[200px] bg-[#67A6D7] rounded-lg flex items-center justify-center"
+               onClick = {()=>{
+                saveMessageText()
+               }}
+               >
                 <h1 className="text-lg font-medium text-white font-reem-kufi">
-                  Send
+                  Save
                 </h1>
-              </div>
+              </div> 
             </div>
           </div>
         </div>
       </div>
+     {loading && <Loader />}
     </>
   );
 }

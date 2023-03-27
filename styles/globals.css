@@ -12,3 +12,23 @@
     @apply text-start font-reem-kufi text-base text-[#838383]  py-[20px] font-light  border-t  border-dashed border-[#838383];
   }
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background:#626FC1;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

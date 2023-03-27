@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const SearchUser = ({callBack}) => {
+const SearchCompaign = ({callBack}) => {
   return (
     <div
       className="w-[200px] relative overflow-hidden"
@@ -10,7 +10,7 @@ const SearchUser = ({callBack}) => {
       }}
     >
       <input
-        placeholder="Search user..."
+        placeholder="Search compaign..."
         className="w-full h-full outline-none border-none active:border-none px-4 py-2"
         onChange={e => callBack(e.target.value)}
       />
@@ -18,4 +18,4 @@ const SearchUser = ({callBack}) => {
   );
 };
 
-export default SearchUser;
+export default  SearchCompaign;

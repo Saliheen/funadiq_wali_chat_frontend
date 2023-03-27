@@ -1,10 +1,24 @@
-import React from "react";
-const d = [1, 2, 3, 4, 5];
-const PaginationComponent = () => {
+import React,{useState,useEffect} from "react";
+
+const PaginationComponent = ({ totalPages, currentPage}) => {
+  const [pagesArray,setPagesArray] = useState([])
+
+  useEffect(()=>{
+    let arr = new Array(totalPages).fill(null)
+ setPagesArray(arr.map((item,index)=>index+1))
+
+  },[totalPages])
+
   return (
     <div className="flex flex-row items-center space-x-[5px]">
-      {d.map((item, index) => {
-        return <Item pageNumber={index + 1} />;
+      {pagesArray.map((item, index) => {
+        if (pagesArray?.length<10) {
+          return <Item pageNumber={index + 1} />;
+        }
+        else{
+          
+        }
+       
       })}
     </div>
   );

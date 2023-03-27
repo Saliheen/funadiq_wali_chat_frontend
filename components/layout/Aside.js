@@ -22,12 +22,19 @@ const linksList = [
       "/contacts",
     ],
   },
+  {
+    title: "Compaigns",
+    active_icon: "compaignactive.png.png",
+    none_active_icon: "compaignnonactive.png.png",
+    path: "/compaigns",
+    relatedPaths: [ "/compaigns"],
+  },
 ];
 
 export default function Aside() {
   const router = useRouter();
   return (
-    <div className="w-full h-full bg-[#F6F5F8] relative">
+    <div className="w-full min-h-screen h-full self-stretch bg-[#F6F5F8]  fixed top-0">
       <div className="pl-[40px] pt-[60px] mb-[80px]">
         <img src="./logo.png" alt="" className="w-[180px] h-[36px]" />
       </div>
