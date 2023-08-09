@@ -16,7 +16,7 @@ export default function compaigns() {
   const [loading,setLoading] = useState(false)
 
 
-  const {data,mutate,isLoading} = useSWR("http://localhost:5000/compaign/get_compaigns_list", (apiURL) =>
+  const {data,mutate,isLoading} = useSWR("https://funadiq-wali-chat-backend-me3cjxa1p-farooq-funadiqcom-s-team.vercel.app/compaign/get_compaigns_list", (apiURL) =>
   fetch(apiURL).then((res) => res.json())
 );
 

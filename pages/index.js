@@ -7,7 +7,7 @@ import Loader from "../components/common/Loader";
 
 export default function Home() {
   
-  const {data,isLoading,mutate} = useSWR("http://localhost:5000/stats", (apiURL) =>
+  const {data,isLoading,mutate} = useSWR("https://funadiq-wali-chat-backend-me3cjxa1p-farooq-funadiqcom-s-team.vercel.app/stats", (apiURL) =>
     fetch(apiURL).then((res) => res.json())
   );
 
