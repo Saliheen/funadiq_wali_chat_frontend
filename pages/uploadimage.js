@@ -1,6 +1,6 @@
-import Loader from "@/components/common/Loader";
-import API from "@/utils/API";
-import getHeader from "@/utils/getHeader";
+import Loader from "../components/common/Loader";
+import API from "../utils/API";
+import getHeader from "../utils/getHeader";
 import Head from "next/head";
 import React,{useState,useEffect,useRef} from "react";
 

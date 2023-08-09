@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 
+
 const linksList = [
   {
     title: "Dashboard",
@@ -28,6 +29,13 @@ const linksList = [
     none_active_icon: "compaignnonactive.png.png",
     path: "/compaigns",
     relatedPaths: [ "/compaigns"],
+  },
+  {
+    title: "Settings",
+    active_icon: "settingsactive.png",
+    none_active_icon: "settings.png",
+    path: "/settings",
+    relatedPaths: [ "/settings"],
   },
 ];
 

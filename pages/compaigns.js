@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import SearchCompaign from "@/components/compaigns/SearchCompaign";
-import PageCountInput from "@/components/contacts/PageCountInput";
+import SearchCompaign from "../components/compaigns/SearchCompaign";
+import PageCountInput from "../components/contacts/PageCountInput";
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
-import Loader from "@/components/common/Loader";
-import getHeader from "@/utils/getHeader";
-import API from "@/utils/API";
+import Loader from "../components/common/Loader";
+import getHeader from "../utils/getHeader";
+import API from "../utils/API";
 import useSWR from "swr";
 
 export default function compaigns() {
@@ -16,7 +16,7 @@ export default function compaigns() {
   const [loading,setLoading] = useState(false)
 
 
-  const {data,mutate} = useSWR("http://localhost:5000/compaign/get_compaigns_list", (apiURL) =>
+  const {data,mutate,isLoading} = useSWR("http://localhost:5000/compaign/get_compaigns_list", (apiURL) =>
   fetch(apiURL).then((res) => res.json())
 );
 
@@ -141,7 +141,7 @@ export default function compaigns() {
           {/* Table end */}
         </div>
       </div>
-      {loading && <Loader />}
+      {(loading || isLoading) && <Loader />}
     </>
   );
 }

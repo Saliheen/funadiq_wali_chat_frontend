@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
-import Dropdown from "@/components/common/Dropdown";
-import SearchUser from "@/components/contacts/SearchUser";
-import CheckBox from "@/components/contacts/CheckBox";
-import PaginationComponent from "@/components/common/PaginationComponent";
+import SearchUser from "../components/contacts/SearchUser";
+import CheckBox from "../components/contacts/CheckBox";
 import API from "../utils/API";
-import PageCountInput from "@/components/contacts/PageCountInput";
-import getHeader from "@/utils/getHeader";
+import PageCountInput from "../components/contacts/PageCountInput";
+import getHeader from "../utils/getHeader";
 import ReactPaginate from "react-paginate";
 import ReactDOM from "react-dom";
-import Loader from "@/components/common/Loader";
-import ContactsModel from "@/components/contacts/lContactsModal";
+import Loader from "../components/common/Loader";
+import ContactsModel from "../components/contacts/lContactsModal";
 import swal from "sweetalert";
 import { useRouter } from "next/router";
 
