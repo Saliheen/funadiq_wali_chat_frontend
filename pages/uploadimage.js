@@ -24,7 +24,6 @@ export default function uploadimage() {
         }}
         
         const {data} = await API.post('message/add_image',formData,formdataHeader)
-        console.log(data)
       setLoading(false)
     } catch (error) {
       console.log(error)

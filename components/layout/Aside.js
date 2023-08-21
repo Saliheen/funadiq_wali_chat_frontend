@@ -43,8 +43,9 @@ export default function Aside() {
   const router = useRouter();
   return (
     <div className="w-full min-h-screen h-full self-stretch bg-[#F6F5F8]  fixed top-0">
-      <div className="pl-[40px] pt-[60px] mb-[80px]">
-        <img src="./logo.png" alt="" className="w-[180px] h-[36px]" />
+      <div className="pl-[40px] pt-[60px] mb-[80px] ">
+        <img src="./logo.png" alt="" className="w-[180px] h-[36px] hidden" />
+        <h1>Logo</h1>
       </div>
       <div>
         {linksList.map((item, index) => (
