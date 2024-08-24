@@ -2,52 +2,56 @@ import Loader from "../components/common/Loader";
 import API from "../utils/API";
 import getHeader from "../utils/getHeader";
 import Head from "next/head";
-import React,{useState,useEffect,useRef} from "react";
-
+import React, { useState, useEffect, useRef } from "react";
 
 export default function uploadimage() {
-  const [loading,setLoading] = useState(false)
-  const [payload,setPayload] = useState(null)
-  const [imageUrl,setImageUrl] = useState(null)
-  const inputRef = useRef()
-  const header = getHeader()
-  
+  const [loading, setLoading] = useState(false);
+  const [payload, setPayload] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
+  const inputRef = useRef();
+  const header = getHeader();
+
   const saveImage = async () => {
-    setLoading(true)
-    const formData = new FormData()
-    formData.append('file',payload)
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("file", payload);
     try {
       const formdataHeader = {
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'multipart/form-data'      
-        }}
-        
-        const {data} = await API.post('message/add_image',formData,formdataHeader)
-      setLoading(false)
-    } catch (error) {
-      console.log(error)
-      setLoading(false)
-    }
-  }
+          Accept: "application/json",
+          "Content-Type": "multipart/form-data",
+        },
+      };
 
-  const loadMessage = async()=>{
-    console.log('function working')
-    setLoading(true)
-    try {
-      const {data} = await API.get('message/get_message',header)
-      console.log(data)
-      setImageUrl(data?.data?.imageUrl)
-     setLoading(false)
+      const { data } = await API.post(
+        "message/add_image",
+        formData,
+        formdataHeader
+      );
+      setLoading(false);
     } catch (error) {
-      console.log(error)
-     
-      setLoading(false)
+      console.log(error);
+      setLoading(false);
     }
-  }
-  useEffect(()=>{
-    loadMessage()
-  },[])
+  };
+
+  const loadMessage = async () => {
+    console.log("function working");
+    setLoading(true);
+    try {
+      const { data } = await API.get("message/get_message", header);
+
+      setImageUrl(data?.data?.imageUrl);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    loadMessage();
+  }, []);
 
   return (
     <>
@@ -57,12 +61,15 @@ export default function uploadimage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <input ref={inputRef} className = 'hidden' type={'file'}
-      onChange = {(e)=>{
-        console.log(e.target.files[0])
-        setPayload(e.target.files[0])
-      }}
-      
+      <input
+        ref={inputRef}
+        className="hidden"
+        type={"file"}
+        onChange={(e) => {
+          setPayload(e.target.files[0]);
+
+          setImageUrl(URL.createObjectURL(e.target.files[0]));
+        }}
       />
       <div className="w-full h-full flex p-[40px]">
         <div className="flex-1 self-stretch border-[2px] border-[#838383] border-dashed  rounded-lg relative">
@@ -77,9 +84,11 @@ export default function uploadimage() {
                   style={{
                     border: "2px dashed #67A6D7",
                   }}
-                  onClick = {()=>inputRef.current.click()}
-                ></div>
-                <div>
+                  onClick={() => inputRef.current.click()}
+                >
+                  <img src={imageUrl} className="h-full w-full" />
+                </div>
+                {/* <div>
                   <img src="./arrowblue.png" alt="" />
                 </div>
                 <div
@@ -90,7 +99,7 @@ export default function uploadimage() {
                 >
                    <img src={imageUrl}
                     className='h-full w-full'/>
-                </div>
+                </div> */}
               </div>
               <div>
                 <div className="max-w-[442px]">
@@ -105,10 +114,10 @@ export default function uploadimage() {
                         Cancel
                       </h1>
                     </div>
-                    <div className=" flex-1 h-[44px] rounded-[7px] bg-[#67A6D7] flex items-center justify-center cursor-pointer"
-                    onClick={()=>saveImage()}
+                    <div
+                      className=" flex-1 h-[44px] rounded-[7px] bg-[#67A6D7] flex items-center justify-center cursor-pointer"
+                      onClick={() => saveImage()}
                     >
-
                       <h1 className="font-reem-kufi text-white font-normal">
                         Upload Image
                       </h1>
